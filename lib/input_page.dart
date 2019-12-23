@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'icon_content.dart';
+import 'reusable_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const bottomContainerHeight = 60.0;
@@ -12,6 +13,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+
+  bool isMaleSelected = true;
+  bool isFemaleSelected = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +29,37 @@ class _InputPageState extends State<InputPage> {
               child: Row(
             children: <Widget>[
               Expanded(
-                child: ReusableCard(color: sexContainerColor,
-                cardChild: IconWidget(text: 'MALE', isActive: true, iconData: FontAwesomeIcons.mars),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isMaleSelected = true;
+                      isFemaleSelected = false;
+                    });
+                  },
+                  child: ReusableCard(
+                    color: sexContainerColor,
+                    cardChild: IconWidget(
+                        text: 'MALE',
+                        isActive: isMaleSelected,
+                        iconData: FontAwesomeIcons.mars),
+                  ),
                 ),
               ),
               Expanded(
-                child: ReusableCard(color: sexContainerColor,
-                cardChild: IconWidget(text: 'FEMALE', isActive: false, iconData: FontAwesomeIcons.venus),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isMaleSelected = false;
+                      isFemaleSelected = true;
+                    });
+                  },
+                                  child: ReusableCard(
+                    color: sexContainerColor,
+                    cardChild: IconWidget(
+                        text: 'FEMALE',
+                        isActive: isFemaleSelected,
+                        iconData: FontAwesomeIcons.venus),
+                  ),
                 ),
               ),
             ],
@@ -42,10 +71,10 @@ class _InputPageState extends State<InputPage> {
               child: Row(
             children: <Widget>[
               Expanded(
-                child:  ReusableCard(color: bmiContainerColor),
+                child: ReusableCard(color: bmiContainerColor),
               ),
               Expanded(
-                child:  ReusableCard(color: bmiContainerColor),
+                child: ReusableCard(color: bmiContainerColor),
               )
             ],
           )),
