@@ -13,7 +13,6 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-
   bool isMaleSelected = true;
   bool isFemaleSelected = false;
 
@@ -29,37 +28,33 @@ class _InputPageState extends State<InputPage> {
               child: Row(
             children: <Widget>[
               Expanded(
-                child: GestureDetector(
+                child: ReusableCard(
                   onTap: () {
                     setState(() {
                       isMaleSelected = true;
                       isFemaleSelected = false;
                     });
                   },
-                  child: ReusableCard(
-                    color: sexContainerColor,
-                    cardChild: IconWidget(
-                        text: 'MALE',
-                        isActive: isMaleSelected,
-                        iconData: FontAwesomeIcons.mars),
-                  ),
+                  color: sexContainerColor,
+                  cardChild: IconWidget(
+                      text: 'MALE',
+                      isActive: isMaleSelected,
+                      iconData: FontAwesomeIcons.mars),
                 ),
               ),
               Expanded(
-                child: GestureDetector(
+                child: ReusableCard(
                   onTap: () {
                     setState(() {
                       isMaleSelected = false;
                       isFemaleSelected = true;
                     });
                   },
-                                  child: ReusableCard(
-                    color: sexContainerColor,
-                    cardChild: IconWidget(
-                        text: 'FEMALE',
-                        isActive: isFemaleSelected,
-                        iconData: FontAwesomeIcons.venus),
-                  ),
+                  color: sexContainerColor,
+                  cardChild: IconWidget(
+                      text: 'FEMALE',
+                      isActive: isFemaleSelected,
+                      iconData: FontAwesomeIcons.venus),
                 ),
               ),
             ],
