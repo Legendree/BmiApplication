@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simpleproject/result_page.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,6 +24,7 @@ class _InputPageState extends State<InputPage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('BMI CALCULATOR')),
+        elevation: 0,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -180,6 +182,23 @@ class _InputPageState extends State<InputPage> {
             margin: EdgeInsets.only(top: 10.0),
             width: double.infinity,
             height: kBottomContainerHeight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ResultPage()));
+                  },
+                  child: Text("CALCULATE BMI",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold)),
+                )
+              ],
+            ),
           )
         ],
       ),

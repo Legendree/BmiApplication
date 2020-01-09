@@ -12,7 +12,8 @@ class BmiCalculator extends StatelessWidget {
         primaryColor: Color(0xFF090C22),
         accentColor: Color(0xFFEA1556),
         scaffoldBackgroundColor: Color(0xFF090C22),
-        textTheme: TextTheme(body1: TextStyle(color: Colors.white))
+        textTheme: TextTheme(body1: TextStyle(color: Colors.white)),
+        fontFamily: 'Lato'
       ),
     );
   }
