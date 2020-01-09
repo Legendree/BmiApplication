@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-const bottomContainerHeight = 60.0;
-const sexContainerColor = Color(0xFF1D1E33);
-const bmiContainerColor = Color(0xFF101427);
+import 'constants.dart';
+import 'CustomBmiSlider.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -16,6 +14,10 @@ class _InputPageState extends State<InputPage> {
   bool isMaleSelected = true;
   bool isFemaleSelected = false;
 
+  int height = 180;
+  int weight = 60;
+  int age = 21;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +25,7 @@ class _InputPageState extends State<InputPage> {
         title: Center(child: Text('BMI CALCULATOR')),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
               child: Row(
@@ -35,7 +38,7 @@ class _InputPageState extends State<InputPage> {
                       isFemaleSelected = false;
                     });
                   },
-                  color: sexContainerColor,
+                  color: kSexContainerColor,
                   cardChild: IconWidget(
                       text: 'MALE',
                       isActive: isMaleSelected,
@@ -50,7 +53,7 @@ class _InputPageState extends State<InputPage> {
                       isFemaleSelected = true;
                     });
                   },
-                  color: sexContainerColor,
+                  color: kSexContainerColor,
                   cardChild: IconWidget(
                       text: 'FEMALE',
                       isActive: isFemaleSelected,
@@ -60,16 +63,115 @@ class _InputPageState extends State<InputPage> {
             ],
           )),
           Expanded(
-            child: ReusableCard(color: bmiContainerColor),
+            child: ReusableCard(
+              color: kBmiContainerColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('HEIGHT', style: kTextStyle),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        height.toString(),
+                        style: kValueStyle,
+                      ),
+                      Text('cm', style: kTextStyle),
+                    ],
+                  ),
+                  BmiCustomSlider(
+                    bmiSlider: Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 260.0,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.toInt();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           Expanded(
               child: Row(
             children: <Widget>[
               Expanded(
-                child: ReusableCard(color: bmiContainerColor),
+                child: ReusableCard(
+                  color: kBmiContainerColor,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('WEIGHT', style: kTextStyle),
+                      Text(weight.toString(), style: kValueStyle),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RoundIconButton(
+                            icon: Icons.add,
+                            exec: () {
+                              setState(() {
+                                ++weight;
+                                if (weight > 260) weight = 260;
+                              });
+                            },
+                          ),
+                          SizedBox(width: 15),
+                          RoundIconButton(
+                            icon: Icons.remove,
+                            exec: () {
+                              setState(() {
+                                --weight;
+                                if (weight < 32) weight = 32;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Expanded(
-                child: ReusableCard(color: bmiContainerColor),
+                child: ReusableCard(
+                  color: kBmiContainerColor,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('AGE', style: kTextStyle),
+                      Text(age.toString(), style: kValueStyle),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          RoundIconButton(
+                            icon: Icons.add,
+                            exec: () {
+                              setState(() {
+                                ++age;
+                                if (age > 120) age = 120;
+                              });
+                            },
+                          ),
+                          SizedBox(width: 10),
+                          RoundIconButton(
+                              icon: Icons.remove,
+                              exec: () {
+                                setState(() {
+                                  --age;
+                                  if (age < 3) age = 3;
+                                });
+                              })
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               )
             ],
           )),
@@ -77,10 +179,31 @@ class _InputPageState extends State<InputPage> {
             color: Color(0xFFEA1556),
             margin: EdgeInsets.only(top: 10.0),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           )
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({this.icon, this.exec});
+
+  final IconData icon;
+  final Function exec;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(icon, color: Colors.white, size: 32),
+      shape: CircleBorder(),
+      fillColor: kSexContainerColor,
+      constraints: BoxConstraints.tightFor(width: 52, height: 52),
+      onPressed: exec,
+      elevation: 0,
+      focusElevation: 0,
+      highlightElevation: 0,
     );
   }
 }
