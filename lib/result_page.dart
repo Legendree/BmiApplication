@@ -1,11 +1,15 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:simpleproject/constants.dart';
 import 'reusable_card.dart';
 
 class ResultPage extends StatelessWidget {
-  double calculatedBmi = 22.1;
+
+  ResultPage({this.calculatedBmi, this.bmiStatus, this.advice, this.statusColor});
+
+  final String calculatedBmi;
+  final String bmiStatus;
+  final String advice;
+  final Color statusColor;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +41,11 @@ class ResultPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text('NORMAL',
+                    Text(bmiStatus,
                         style: TextStyle(
-                            color: kBmiNormalRangeColor, fontSize: 18)),
+                            color: statusColor, fontSize: 18)),
                     SizedBox(height: 25),
-                    Text(calculatedBmi.toString(),
+                    Text(calculatedBmi,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 80,
@@ -49,20 +53,24 @@ class ResultPage extends StatelessWidget {
                     Text('Normal BMI range:',
                         style:
                             TextStyle(color: Color(0xFF858894), fontSize: 18)),
-                    Text('18,5 - 25 kg/m2',
+                    Text('18,5 - 25 kg/m²',
                         style: TextStyle(color: Colors.white, fontSize: 16)),
                     SizedBox(height: 35),
-                    Text('You have a normal body weight. \nGood job!',
+                    Text(advice,
                         style: TextStyle(color: Colors.white, fontSize: 16),
                         textAlign: TextAlign.center),
                     SizedBox(height: 15),
                     FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(2.5),
+                      ),
                       color: Color(0xFF181927),
                       child: Text('SAVE RESULT',
                           style: TextStyle(
                               color: Colors.white, letterSpacing: 2.5)),
                       onPressed: () {},
                       padding: EdgeInsets.fromLTRB(35, 15, 35, 15),
+                      highlightColor: Color(0xFF343549),
                     ),
                   ],
                 ),

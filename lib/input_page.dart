@@ -5,6 +5,7 @@ import 'reusable_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'constants.dart';
 import 'CustomBmiSlider.dart';
+import 'calculation.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -129,7 +130,7 @@ class _InputPageState extends State<InputPage> {
                             exec: () {
                               setState(() {
                                 --weight;
-                                if (weight < 32) weight = 32;
+                                if (weight < 15) weight = 15;
                               });
                             },
                           ),
@@ -188,14 +189,21 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
+                    Calculation bmiCalc = Calculation(height: height, weight: weight);
+
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ResultPage()));
+                        MaterialPageRoute(builder: (context) => ResultPage(
+                          calculatedBmi: bmiCalc.calculateBmi(),
+                          bmiStatus: bmiCalc.getHealthStatus(),
+                          advice: bmiCalc.getFeedback(),
+                          statusColor: bmiCalc.statusColor(),
+                        )));
                   },
                   child: Text("CALCULATE BMI",
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold)),
+                          fontWeight: FontWeight.w700)),
                 )
               ],
             ),
