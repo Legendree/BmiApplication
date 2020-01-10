@@ -42,7 +42,7 @@ class Calculation {
     else if (_bmi > 30.00)
       return Color(0xFFC70039);
     else if (_bmi < 25.00 && _bmi > 18.5)
-      return Color(0XFFDAF7A6);
+      return Color(0xFF75D147);
     else if (_bmi < 18.5) 
       return Color(0xFFFF5733);
     return Color(0xFF900C3F);

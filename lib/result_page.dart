@@ -81,7 +81,7 @@ class ResultPage extends StatelessWidget {
             color: Color(0xFFEA1556),
             margin: EdgeInsets.only(top: 10),
             width: double.infinity,
-            height: 70,
+            height: kBottomContainerHeight,
             child: Text(
               'RE-CALCULATE YOUR BMI',
               style: TextStyle(
